@@ -1,0 +1,15 @@
+onCreate:
+  - sudo apt-get update -y
+  - sudo apt-get install -y virtualenv
+  - virtualenv -p python3 ../venv
+  - |
+        . ../venv/bin/activate
+        pip install -U pip
+        pip install -r requirements.txt
+onStart:
+  - |
+        . ../venv/bin/activate
+        export FLASK_APP=app
+        WS_DOMAIN=`cat /home/ubuntu/runcode/ws-url-domain.txt`
+        printf "\nGO TO THIS URL TO VIEW PAGE \033[4;34m https://5000-${WS_DOMAIN}\033[0;30m\n\n"
+        flask run
